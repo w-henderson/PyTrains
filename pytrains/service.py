@@ -78,7 +78,7 @@ class StaticStation:
         self.timetabledDeparture = timeParse(timetabledDeparture)
         self.estimatedArrival = timeParse(estimatedArrival)
         self.estimatedDeparture = timeParse(estimatedDeparture)
-        self.delayed = self.timetabledDeparture == self.estimatedDeparture
+        self.delayed = timetabledDeparture == estimatedDeparture
 
 class Carriage:
     def __init__(self, number, catering, bikes, wheelchairs, firstClass):

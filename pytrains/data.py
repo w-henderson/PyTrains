@@ -6,13 +6,19 @@ with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "data.json"))
 
 def getCRS(name):
     for station in data:
-        if station["name"] == name:
+        if data[station]["name"] == name:
             return station
     raise Exception("No CRS code found.")
 def getName(crs):
-    return data[crs]["name"]
+    if crs in data:
+        return data[crs]["name"]
+    else:
+        raise Exception("CRS code invalid.")
 def getLink(crs):
-    return data[crs]["link"]
+    if crs in data:
+        return data[crs]["link"]
+    else:
+        raise Exception("CRS code invalid.")
 
 def timeParse(time):
     split = [int(time[0:2]), int(time[2:4])]
@@ -23,5 +29,6 @@ def search(query):
     if len(query) < 2:
         return results
     for station in data:
-        if query.lower() in station["name"].lower():
-            return results
+        if query.lower() in data[station]["name"].lower():
+            results.append(data[station]["name"])
+    return results
