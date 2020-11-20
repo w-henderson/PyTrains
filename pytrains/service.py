@@ -9,6 +9,7 @@ class Service:
 
         # Station information
         self.platform = untangledObject.Platform["Number"]
+        if self.platform == "": self.platform = "0"
         self.platformComment = (untangledObject.PlatformComment1.cdata.strip() + " " + untangledObject.PlatformComment2.cdata.strip()).strip()
 
         # Train information
@@ -30,17 +31,28 @@ class Service:
                     callingPoint["etarr"],
                     callingPoint["etdep"]
                 ))
-        self.callingPoints.append(StaticStation(
-            untangledObject.Destination1["name"],
-            untangledObject.Destination1["crs"],
-            untangledObject.Destination1["ttarr"],
-            untangledObject.Destination1["ttarr"],
-            untangledObject.Destination1["etarr"],
-            untangledObject.Destination1["etarr"]
-        ))
+        try:
+            self.callingPoints.append(StaticStation(
+                untangledObject.Destination1["name"],
+                untangledObject.Destination1["crs"],
+                untangledObject.Destination1["ttarr"],
+                untangledObject.Destination1["ttarr"],
+                untangledObject.Destination1["etarr"],
+                untangledObject.Destination1["etarr"]
+            ))
+        except ValueError:
+            self.callingPoints.append(StaticStation(
+                untangledObject.Destination1["name"],
+                untangledObject.Destination1["crs"],
+                untangledObject.Destination1["ttarr"],
+                untangledObject.Destination1["ttarr"],
+                untangledObject.Destination1["ttarr"],
+                untangledObject.Destination1["ttarr"]
+            ))
 
         # Carriage information
         self.carriageCount = untangledObject.Coaches1.cdata
+        if self.carriageCount == "": self.carriageCount = "0"
         try:
             if untangledObject.CoachesList.cdata == "":
                 self.additionalCarriageData = None
