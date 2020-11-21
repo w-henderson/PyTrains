@@ -44,7 +44,7 @@ def main():
             "  " + str(i+1).ljust(3),
             departure.departureTime.strftime("%H:%M").ljust(6),
             delayColor + delayString.ljust(10) + colorama.Fore.WHITE,
-            ("Platform " + (departure.platform if departure.platform != "0" else "?")).ljust(13) + colorama.Fore.YELLOW,
+            ("Platform " + departure.platform).ljust(13) + colorama.Fore.YELLOW,
             departure.destination
         )
 
@@ -59,7 +59,7 @@ def main():
         print(colorama.Fore.RESET, end="")
         
         if service.delayCause != "":
-            print("Delayed due to {}.".format(service.delayCause))
+            print("  Delayed due to {}.".format(service.delayCause))
 
         for note in [service.trainComment, service.platformComment]:
             if note != "":
@@ -71,6 +71,5 @@ def main():
                 "  " + callingPoint.estimatedArrival.strftime("%H:%M").ljust(6) + colorama.Fore.YELLOW,
                 callingPoint.name + colorama.Fore.RESET
             )
-
     
     print(colorama.Style.RESET_ALL, end="")

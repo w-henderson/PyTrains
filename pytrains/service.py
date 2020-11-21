@@ -9,7 +9,7 @@ class Service:
 
         # Station information
         self.platform = untangledObject.Platform["Number"]
-        if self.platform == "": self.platform = "0"
+        if self.platform == "": self.platform = "?"
         self.platformComment = (untangledObject.PlatformComment1.cdata.strip() + " " + untangledObject.PlatformComment2.cdata.strip()).strip()
 
         # Train information
@@ -24,7 +24,7 @@ class Service:
         if untangledObject.Dest1CallingPoints["NumCallingPoints"] != "0":
             for callingPoint in untangledObject.Dest1CallingPoints.CallingPoint:
                 try:
-                    self.callingPoints.append(StaticStation(
+                    self.callingPoints.append(CallingPoint(
                         callingPoint["Name"],
                         callingPoint["crs"],
                         callingPoint["ttarr"],
@@ -35,7 +35,7 @@ class Service:
                 except:
                     continue
         try:
-            self.callingPoints.append(StaticStation(
+            self.callingPoints.append(CallingPoint(
                 untangledObject.Destination1["name"],
                 untangledObject.Destination1["crs"],
                 untangledObject.Destination1["ttarr"],
@@ -45,7 +45,7 @@ class Service:
             ))
         except ValueError:
             try:
-                self.callingPoints.append(StaticStation(
+                self.callingPoints.append(CallingPoint(
                     untangledObject.Destination1["name"],
                     untangledObject.Destination1["crs"],
                     untangledObject.Destination1["ttarr"],
@@ -75,8 +75,14 @@ class Service:
                 self.additionalCarriageData.sort(key=lambda x: x.number)
         except AttributeError:
             self.additionalCarriageData = None
+    
+    def __repr__(self):
+        return "<Service {} to {}>".format(
+            self.departureTime.strftime("%H:%M"),
+            self.destination
+        )
 
-class StaticStation:
+class CallingPoint:
     def __init__(self, name, crs, timetabledArrival, timetabledDeparture, estimatedArrival, estimatedDeparture):
         self.name = name
         self.crs = crs
@@ -85,6 +91,11 @@ class StaticStation:
         self.estimatedArrival = timeParse(estimatedArrival)
         self.estimatedDeparture = timeParse(estimatedDeparture)
         self.delayed = timetabledDeparture == estimatedDeparture
+    def __repr__(self):
+        return "<CallingPoint {} ({})>".format(
+            self.name,
+            self.crs
+        )
 
 class Carriage:
     def __init__(self, number, catering, bikes, wheelchairs, firstClass):
@@ -93,3 +104,5 @@ class Carriage:
         self.bikes = bikes == "Y"
         self.wheelchairs = wheelchairs == "Y"
         self.firstClass = firstClass == "Y"
+    def __repr__(self):
+        return "<Carriage {}>".format(self.number)

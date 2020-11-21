@@ -20,3 +20,9 @@ class Station:
         for service in parsedRequest.Service:
             if service.ServiceType["Type"] == "Originating" or service.ServiceType["Type"] == "Through":
                 self.services.append(Service(service))
+
+    def __repr__(self):
+        return "<Station {} ({})>".format(
+            self.name,
+            self.crs
+        )
