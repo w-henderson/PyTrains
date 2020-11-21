@@ -23,14 +23,17 @@ class Service:
         self.callingPoints = []
         if untangledObject.Dest1CallingPoints["NumCallingPoints"] != "0":
             for callingPoint in untangledObject.Dest1CallingPoints.CallingPoint:
-                self.callingPoints.append(StaticStation(
-                    callingPoint["Name"],
-                    callingPoint["crs"],
-                    callingPoint["ttarr"],
-                    callingPoint["ttdep"],
-                    callingPoint["etarr"],
-                    callingPoint["etdep"]
-                ))
+                try:
+                    self.callingPoints.append(StaticStation(
+                        callingPoint["Name"],
+                        callingPoint["crs"],
+                        callingPoint["ttarr"],
+                        callingPoint["ttdep"],
+                        callingPoint["etarr"],
+                        callingPoint["etdep"]
+                    ))
+                except:
+                    continue
         try:
             self.callingPoints.append(StaticStation(
                 untangledObject.Destination1["name"],
@@ -41,14 +44,17 @@ class Service:
                 untangledObject.Destination1["etarr"]
             ))
         except ValueError:
-            self.callingPoints.append(StaticStation(
-                untangledObject.Destination1["name"],
-                untangledObject.Destination1["crs"],
-                untangledObject.Destination1["ttarr"],
-                untangledObject.Destination1["ttarr"],
-                untangledObject.Destination1["ttarr"],
-                untangledObject.Destination1["ttarr"]
-            ))
+            try:
+                self.callingPoints.append(StaticStation(
+                    untangledObject.Destination1["name"],
+                    untangledObject.Destination1["crs"],
+                    untangledObject.Destination1["ttarr"],
+                    untangledObject.Destination1["ttarr"],
+                    untangledObject.Destination1["ttarr"],
+                    untangledObject.Destination1["ttarr"]
+                ))
+            except:
+                pass
 
         # Carriage information
         self.carriageCount = untangledObject.Coaches1.cdata

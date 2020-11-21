@@ -1,8 +1,6 @@
 import os
 from datetime import time as dt
-
-with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "data.json")) as dataFile:
-    data = eval(dataFile.read())
+from .rawData import data
 
 def getCRS(name):
     for station in data:
