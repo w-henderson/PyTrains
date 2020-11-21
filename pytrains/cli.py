@@ -37,17 +37,14 @@ def main():
 
         delayString = "On time"
         delayColor = colorama.Fore.GREEN
-        if not departure.delay.isnumeric() or departure.delayCause != "":
+        if departure.delayed:
             delayColor = colorama.Fore.RED
-            delayString = "Delayed"
-        elif int(departure.delay) > 0:
-            delayColor = colorama.Fore.RED
-            delayString = "Ex. {}".format(addMins(departure.departureTime,int(departure.delay)).strftime("%H:%M"))
+            delayString = "Ex. {}".format(departure.expectedDepartureTime.strftime("%H:%M"))
         print(colorama.Fore.RESET, end="")
 
         print(
             "  " + str(i+1).ljust(3),
-            departure.departureTime.strftime("%H:%M").ljust(6),
+            departure.scheduledDepartureTime.strftime("%H:%M").ljust(6),
             delayColor + delayString.ljust(10) + colorama.Fore.WHITE,
             ("Platform " + departure.platform).ljust(13) + colorama.Fore.YELLOW,
             departure.destination
@@ -60,7 +57,11 @@ def main():
         service = station.services[int(more) - 1]
 
         print(colorama.Style.BRIGHT + colorama.Fore.CYAN, end="")
-        print("\n  == {} to {} ==\n".format(service.departureTime.strftime("%H:%M"), service.destination))
+        print("\n  == {} to {} {}==\n".format(
+            service.expectedDepartureTime.strftime("%H:%M"),
+            service.destination,
+            "" if service.carriageCount == "?" else "(" + service.carriageCount + " carriages) "
+        ))
         print(colorama.Fore.RESET, end="")
         
         if service.delayCause != "":

@@ -3,9 +3,12 @@ from .data import timeParse
 class Service:
     def __init__(self, untangledObject):
         # Timings
-        self.departureTime = timeParse(untangledObject.DepartTime["time"])
+        self.scheduledDepartureTime = timeParse(untangledObject.DepartTime["time"])
+        self.expectedDepartureTime = timeParse(untangledObject.ExpectedDepartTime["time"]) if len(untangledObject.ExpectedDepartTime["time"]) == 4 else self.scheduledDepartureTime
         self.delay = untangledObject.Delay["Minutes"]
+        self.delay = self.delay if self.delay != "" else "0"
         self.delayCause = untangledObject.DelayCause.cdata
+        self.delayed = (not self.delay.isnumeric()) or int(self.delay) > 0 or self.scheduledDepartureTime != self.expectedDepartureTime
 
         # Station information
         self.platform = untangledObject.Platform["Number"]
@@ -58,7 +61,7 @@ class Service:
 
         # Carriage information
         self.carriageCount = untangledObject.Coaches1.cdata
-        if self.carriageCount == "": self.carriageCount = "0"
+        if self.carriageCount == "": self.carriageCount = "?"
         try:
             if untangledObject.CoachesList.cdata == "":
                 self.additionalCarriageData = None
@@ -78,7 +81,7 @@ class Service:
     
     def __repr__(self):
         return "<Service {} to {}>".format(
-            self.departureTime.strftime("%H:%M"),
+            self.scheduledDepartureTime.strftime("%H:%M"),
             self.destination
         )
 
