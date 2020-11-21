@@ -6,13 +6,9 @@
 PyTrains is a simple Python library and command-line interface to obtain realtime UK train information through [Worldline's "Tiger" train API](http://iris2.rail.co.uk/tiger/), which is unfortunately undocumented, making this library very difficult to create and maintain!
 
 ## Command Line Interface
-```
-pytrains <station name or CRS code>
-```
-
 <img src="https://raw.githubusercontent.com/w-henderson/PyTrains/master/assets/example_cli_output.png" align="left" width="250">
 
-The command line interface is very high level and intuitive, allowing you to simply enter the name of the station or its CRS code and recieve a detailed breakdown of services from the specified station. For example, if I were to find train services from Birmingham New Street, I could enter either `pytrains bhm` or `pytrains Birmingham New Street` (both case-insensitive) to see a list of departures. If I want more information about a specific service, I can type in the ID (the number on the far left) and press ENTER, which will tell me limited information about the service's calling points, along with some information about carriages and status. On the left is an example output of this.
+The command line interface is very simple and easy to use. You can do three things with it, the first of which is simply viewing the departure board for a certain station by running `pytrains <crs code or station name>`. For example, if I wanted departures from Birmingham New Street, I could type `pytrains brs` or `pytrains birmingham new street` (both case-insensitive). The second usage is to find more information about a service. When you run the first command, each service has an ID on the left. To get more information about a service with a specific ID, you can run `pytrains -i <id>` or `pytrains --id <id>`. The final usage is to find the first train calling at a certain destination from a given station, which can be done by running `pytrains <origin> -d <destination>` or `pytrains <origin> --dest <destination>`. For example, if I want to know the next train from London Paddington which stops at Exeter St Davids, I could type `pytrains pad -d exd` or `pytrains london paddington --dest exeter st davids`.
 
 ## Use as a Python Module [(Full Documentation)](https://github.com/w-henderson/PyTrains/blob/master/DOCUMENTATION.md)
 PyTrains can also be imported and used as a Python module with easy-to-understand syntax. Here's a very simple example program to get you going:

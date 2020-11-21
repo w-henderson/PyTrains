@@ -25,7 +25,7 @@ class Station:
                     self.services.append(Service(service))
         except AttributeError:
             try:
-                self.specialNotice = parsedRequest.SpecialNotice.cdata
+                self.specialNotice = parsedRequest.SpecialNotices.SpecialNotice.cdata.replace("\n", " ")
             except:
                 self.specialNotice = "Train data could not be found."
 

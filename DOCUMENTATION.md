@@ -1,5 +1,20 @@
 # PyTrains Documentation
 
+# Command-Line Interface
+```
+usage: pytrains station [-h] [-i ID] [-d DEST]
+
+Get realtime UK train information through a simple Python API.
+
+positional arguments:
+  station               Name or CRS code for the station.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -i ID, --id ID        service ID to get more information about
+  -d DEST, --dest DEST  destination to find the next train to
+```
+
 # Classes from file `station.py`
 
 ## `Station` class
@@ -25,6 +40,7 @@ Timing-related Attributes:
 - `delay`: Delay of the train in minutes as a string, equal to "0" if none or unknown
 - `delayCause`: Reason for the delay, equal to "" if unknown or on time
 - `delayed`: Whether the train is delayed or not (boolean)
+- `lastReport`: The train's last reported location, equal to "No report." if unknown
 
 Station-related Attributes:
 - `platform`: The platform the train will stop at as a string, equal to "?" if unknown
@@ -33,6 +49,7 @@ Station-related Attributes:
 Journey-related Attributes:
 - `origin`: The name of the station from which the train originated
 - `destination`: The name of the station the train will terminate at
+- `destinationCRS`: The CRS code of the station the train will terminate at
 - `via`: The name of a station that the train goes via, equal to "" if unavailable
 - `callingPoints`: List of `CallingPoint` objects representing the stations the train stops at
 

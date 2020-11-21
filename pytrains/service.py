@@ -1,4 +1,4 @@
-from .data import timeParse
+from .data import timeParse, getCRS
 
 class Service:
     def __init__(self, untangledObject):
@@ -18,9 +18,27 @@ class Service:
         # Train information
         self.origin = untangledObject.Origin1["name"]
         self.destination = untangledObject.Destination1["name"]
+        self.destinationCRS = untangledObject.Destination1["crs"]
         self.via = untangledObject.Via.cdata
         self.operator = untangledObject.Operator["name"]
         self.trainComment = untangledObject.AssociatedPageNotices.cdata
+
+        # Last report
+        if untangledObject.LastReport["type"] == "T":
+            self.lastReport = "At {} ({}:{})".format(
+                untangledObject.LastReport["station1"],
+                untangledObject.LastReport["time"][0:2],
+                untangledObject.LastReport["time"][2:4]
+            )
+        elif untangledObject.LastReport["type"] == "B":
+            self.lastReport = "Between {} and {} ({}:{})".format(
+                untangledObject.LastReport["station1"],
+                untangledObject.LastReport["station2"],
+                untangledObject.LastReport["time"][0:2],
+                untangledObject.LastReport["time"][2:4]
+            )
+        else:
+            self.lastReport = "No report."
 
         # Calling points information
         self.callingPoints = []
