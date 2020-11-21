@@ -4,7 +4,7 @@ from .rawData import data
 
 def getCRS(name):
     for station in data:
-        if data[station]["name"] == name:
+        if data[station]["name"].lower() == name.lower():
             return station
     raise Exception("No CRS code found.")
 def getName(crs):

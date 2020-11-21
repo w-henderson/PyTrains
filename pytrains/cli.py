@@ -1,13 +1,14 @@
 from datetime import datetime, timedelta
 from .station import Station
-from .data import getName
+from .data import getName, getCRS
 import argparse
 import colorama
 colorama.init()
 
 parser = argparse.ArgumentParser(description="Get realtime UK train information through a simple Python API.")
-parser.add_argument("crs", help="CRS code for the station.")
+parser.add_argument("station", help="Name or CRS code for the station.", nargs="+")
 args = parser.parse_args()
+command = " ".join(args.station)
 
 def addMins(tm, mins):
     fulldate = datetime(100, 1, 1, tm.hour, tm.minute, tm.second)
@@ -16,12 +17,16 @@ def addMins(tm, mins):
 
 def main():
     try:
-        getName(args.crs.upper())
+        crs = getCRS(command)
     except:
-        print(colorama.Fore.RED + colorama.Style.BRIGHT + "[ERROR]: CRS code invalid." + colorama.Style.RESET_ALL)
-        return
+        try:
+            valid = getName(command.upper())
+            crs = command.upper()
+        except:
+            print(colorama.Fore.RED + colorama.Style.BRIGHT + "[ERROR]: CRS code invalid." + colorama.Style.RESET_ALL)
+            return
 
-    station = Station(args.crs.upper())
+    station = Station(crs)
 
     print(colorama.Style.BRIGHT + colorama.Fore.CYAN, end="")
 
