@@ -9,6 +9,7 @@ Attributes:
 - `crs`: CRS code of the station, e.g. "BHM"
 - `name`: Full name of the station, e.g. "Birmingham New Street"
 - `services`: List of `Service` objects representing departures from this station
+- `specialNotice`: If services weren't obtained, this message tries to give a reason
 
 Methods:
 - `updateServices()`: Update services from this station.

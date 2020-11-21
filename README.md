@@ -8,7 +8,9 @@ PyTrains is a simple Python library and command-line interface to obtain realtim
 ```
 pytrains <station name or CRS code>
 ```
+
 <img src="assets/example_cli_output.png" align="left" height="300">
+
 The command line interface is very high level and intuitive, allowing you to simply enter the name of the station or its CRS code and recieve a detailed breakdown of services from the specified station. For example, if I were to find train services from Birmingham New Street, I could enter either `pytrains bhm` or `pytrains Birmingham New Street` (both case-insensitive) to see a list of departures. If I want more information about a specific service, I can type in the ID (the number on the far left) and press ENTER, which will tell me limited information about the service's calling points, along with some information about carriages and status. On the left is an example output of this.
 
 ## Use as a Python Module [(Full Documentation)](DOCUMENTATION.md)

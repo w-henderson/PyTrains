@@ -9,6 +9,7 @@ class Station:
         self.crs = crs
         self.name = getName(crs)
         self.link = getLink(crs)
+        self.specialNotice = ""
 
         self.updateServices()
 
@@ -17,9 +18,16 @@ class Station:
         parsedRequest = parse(request.text).StationBoard
         
         self.services = []
-        for service in parsedRequest.Service:
-            if service.ServiceType["Type"] == "Originating" or service.ServiceType["Type"] == "Through":
-                self.services.append(Service(service))
+
+        try:
+            for service in parsedRequest.Service:
+                if service.ServiceType["Type"] == "Originating" or service.ServiceType["Type"] == "Through":
+                    self.services.append(Service(service))
+        except AttributeError:
+            try:
+                self.specialNotice = parsedRequest.SpecialNotice.cdata
+            except:
+                self.specialNotice = "Train data could not be found."
 
     def __repr__(self):
         return "<Station {} ({})>".format(
