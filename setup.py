@@ -12,7 +12,7 @@ setup(
     author="w-henderson",
     url="https://github.com/w-henderson/PyTrains",
     project_urls={"Source": "https://github.com/w-henderson/PyTrains"},
-    license="MIT",
+    license="GPL-3.0",
     keywords=["trains", "train times", "uk", "cli", "timetable"],
     packages=["pytrains"],
     package_dir={"": "."},
