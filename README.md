@@ -1,5 +1,5 @@
 ![PyTrains banner](https://raw.githubusercontent.com/w-henderson/PyTrains/master/assets/banner.png)
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/w-henderson/PyTrains/PyTrains-Tests) [![GitHub license](https://img.shields.io/github/license/w-henderson/PyTrains)](https://github.com/w-henderson/PyTrains/blob/master/LICENSE)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/w-henderson/PyTrains/PyTrains-Tests) [![GitHub license](https://img.shields.io/github/license/w-henderson/PyTrains)](https://github.com/w-henderson/PyTrains/blob/master/LICENSE) ![PyPI - Downloads](https://img.shields.io/pypi/dm/PyTrains) ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/PyTrains) ![GitHub Repo stars](https://img.shields.io/github/stars/w-henderson/PyTrains)
 
 # PyTrains
 
