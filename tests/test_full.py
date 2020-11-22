@@ -19,7 +19,7 @@ def test_service():
             assert type(service.callingPoints) == list
             assert type(service.additionalCarriageData) == list or service.additionalCarriageData == None
             assert service.carriageCount.isnumeric() or service.carriageCount == "?"
-            assert service.delay.isnumeric()
+            assert service.delay.isnumeric() or service.delay[1:].isnumeric() # Delay can be negative for some reason?
 
             # Ensure vital data has been obtained
             assert service.origin != ""
