@@ -3,7 +3,28 @@ from .station import Station
 from .data import getName, getCRS
 import argparse
 import colorama
+import sys
+
 colorama.init()
+
+if len(sys.argv) == 1:
+    print("\n{}  == Welcome to PyTrains! ==\n".format(colorama.Style.BRIGHT + colorama.Fore.CYAN))
+    print("  {}Welcome to PyTrains, a simple Python library and command-line interface to\n  obtain realtime UK train information from Worldline's Tiger API.\n".format(
+        colorama.Fore.RESET
+    ))
+    print("  To get basic departure information for a station:\n    - {}pytrains <station name or CRS code>{}\n".format(
+        colorama.Fore.YELLOW,
+        colorama.Fore.RESET
+    ))
+    print("  To get information about a specific service:\n    - {}pytrains <station> [-i, --id] <service ID>{}\n".format(
+        colorama.Fore.YELLOW,
+        colorama.Fore.RESET
+    ))
+    print("  To get the next service to a destination:\n    - {}pytrains <origin station> [-d, --dest] <destination station>{}\n".format(
+        colorama.Fore.YELLOW,
+        colorama.Fore.RESET
+    ))
+    sys.exit(1)
 
 parser = argparse.ArgumentParser(description="Get realtime UK train information through a simple Python API.")
 parser.add_argument("station", help="Name or CRS code for the station.", nargs="+")
@@ -13,7 +34,7 @@ args = parser.parse_args()
 command = " ".join(args.station)
 destination = None if args.dest == None else " ".join(args.dest)
 
-def showServiceInfo(service):
+def showServiceInfo(service, highlight=None):
     print(colorama.Style.BRIGHT + colorama.Fore.CYAN, end="")
     print("\n  == {} to {} ({} carriages, platform {})==\n".format(
         service.expectedDepartureTime.strftime("%H:%M"),
@@ -32,8 +53,12 @@ def showServiceInfo(service):
 
     print("  Calling at:")
     for callingPoint in service.callingPoints:
+        mainColor = colorama.Fore.YELLOW
+        if callingPoint.name.lower() == highlight.lower() or callingPoint.crs.upper() == highlight.upper():
+            mainColor = colorama.Fore.GREEN
+
         print(
-            "  " + callingPoint.estimatedArrival.strftime("%H:%M").ljust(6) + colorama.Fore.YELLOW,
+            "  " + callingPoint.estimatedArrival.strftime("%H:%M").ljust(6) + mainColor,
             callingPoint.name + colorama.Fore.RESET
         )
 
@@ -102,6 +127,6 @@ def main():
         if service == None:
             print(colorama.Fore.RED + colorama.Style.BRIGHT + "[ERROR]: No services found to specified destination." + colorama.Style.RESET_ALL)
         else:
-            showServiceInfo(service)
+            showServiceInfo(service, highlight=destination)
 
     print(colorama.Style.RESET_ALL, end="")
