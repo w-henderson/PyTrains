@@ -5,7 +5,7 @@ with open("README.md") as f:
 
 setup(
     name="PyTrains",
-    version="0.0.3",
+    version="0.0.4",
     description="Get realtime UK trains information through a simple Python API.",
     long_description=long_description,
     long_description_content_type="text/markdown",

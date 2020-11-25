@@ -54,8 +54,9 @@ def showServiceInfo(service, highlight=None):
     print("  Calling at:")
     for callingPoint in service.callingPoints:
         mainColor = colorama.Fore.YELLOW
-        if callingPoint.name.lower() == highlight.lower() or callingPoint.crs.upper() == highlight.upper():
-            mainColor = colorama.Fore.GREEN
+        if highlight != None:
+            if callingPoint.name.lower() == highlight.lower() or callingPoint.crs.upper() == highlight.upper():
+                mainColor = colorama.Fore.GREEN
 
         print(
             "  " + callingPoint.estimatedArrival.strftime("%H:%M").ljust(6) + mainColor,
