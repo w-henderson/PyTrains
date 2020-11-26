@@ -26,6 +26,27 @@ if len(sys.argv) == 1:
     ))
     sys.exit(1)
 
+if sys.argv[1] in ["-v", "--version"]:
+    from importlib import metadata
+    import requests
+
+    try:
+        dataReq = requests.get("https://pypi.org/pypi/PyTrains/json").json()
+        upToDate = dataReq["info"]["version"] == metadata.version("PyTrains")
+        print("{}PyTrains {} - {}{}".format(
+            colorama.Fore.CYAN + colorama.Style.BRIGHT,
+            metadata.version("PyTrains") + colorama.Fore.WHITE,
+            colorama.Fore.GREEN + "Up to date!" if upToDate else colorama.Fore.RED + "Out of date, please update!",
+            colorama.Style.RESET_ALL
+        ))
+    except:
+        print("{}Cannot detect version, have you installed PyTrains as a package?{}".format(
+            colorama.Fore.RED + colorama.Style.BRIGHT,
+            colorama.Style.RESET_ALL
+        ))
+    
+    sys.exit(1)
+
 parser = argparse.ArgumentParser(description="Get realtime UK train information through a simple Python API.")
 parser.add_argument("station", help="Name or CRS code for the station.", nargs="+")
 parser.add_argument("-i", "--id", type=int, help="service ID to get more information about")

@@ -11,6 +11,7 @@ positional arguments:
 
 optional arguments:
   -h, --help            show this help message and exit
+  -v, --version         see the version and check for updates
   -i ID, --id ID        service ID to get more information about
   -d DEST, --dest DEST  destination to find the next train to
 ```
