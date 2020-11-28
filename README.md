@@ -44,3 +44,16 @@ Just run `pip install pytrains` to install. Dependencies will be automatically i
 2. Navigate to its directory: `cd PyTrains`
 3. Install dependencies: `pip install -r requirements.txt`
 4. Install the package: `python setup.py install`
+
+## Comparison with [NimTrains](https://github.com/w-henderson/NimTrains)
+You might've seen my other project, NimTrains, which provides an identical CLI to this one, written in Nim. While these two projects both have the same functionality, it's easy to determine which you should use using this table:
+
+| PyTrains | NimTrains |
+| --- | --- |
+| ✔️ Provides a **CLI** | ✔️ Provides a **CLI** |
+| ✔️ Provides an **easy-to-use Python library** | ✔️ Provides an **easy-to-use Nim package** |
+| ❌ Is relatively slow | ✔️ **Is 12x faster than PyTrains** (excluding request time) |
+| ✔️ **Doesn't require a binary** and is therefore **smaller** | ❌ Requires a ~500KB binary to be installed |
+| ❌ Requires Python (>100MB) and 6 dependencies | ✔️ **No dependencies**, works out-of-the-box |
+
+In short, use PyTrains if you want access to the Python library to use in your own code, but if you're only looking for a CLI to access realtime UK train information, NimTrains' massive speed advantage makes it a better option.
