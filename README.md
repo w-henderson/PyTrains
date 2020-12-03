@@ -19,7 +19,7 @@ station = pytrains.Station("BHM")
 
 print("The next train from {} is the {} to {}.".format(
     station.name,
-    station.services[0].departureTime.strftime("%H:%M"),
+    station.services[0].expectedDepartureTime.strftime("%H:%M"),
     station.services[0].destination
 ))
 # Sample output: The next train from Birmingham New Street is the 16:45 to Four Oaks.
