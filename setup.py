@@ -1,11 +1,11 @@
 from setuptools import setup
 
-with open("README.md") as f:
+with open("README.md", "r", encoding="utf-8") as f:
     long_description = f.read()
 
 setup(
     name="PyTrains",
-    version="0.0.6",
+    version="0.0.7",
     description="Get realtime UK trains information through a simple Python API.",
     long_description=long_description,
     long_description_content_type="text/markdown",
