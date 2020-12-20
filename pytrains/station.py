@@ -21,7 +21,7 @@ class Station:
 
         try:
             for service in parsedRequest.Service:
-                if service.ServiceType["Type"] == "Originating" or service.ServiceType["Type"] == "Through":
+                if (service.ServiceType["Type"] == "Originating" or service.ServiceType["Type"] == "Through") and service.ServiceStatus["Status"] != "Cancelled":
                     self.services.append(Service(service))
         except AttributeError:
             try:
